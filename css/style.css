@@ -48,3 +48,7 @@ body>div>div>h2{
     text-align: center;
     color: red;
 }
+.col>ul>li>ul>p{
+    text-align: center;
+    font-size: 10pt;
+}
