@@ -88,13 +88,7 @@ Vue.component('columns', {
                 this.column1.splice(this.column1.indexOf(card), 1)
             } else if (this.column2.length === 5) {
                 this.errors.push('Сначала выполни задания из второй колонки')
-                if(this.column1.length > 0) {
-                    this.column1.forEach(item => {
-                        item.subtasks.forEach(item => {
-                            item.completed = true;
-                        })
-                    })
-                }
+
             }
         },
         Status2(card, t) {
