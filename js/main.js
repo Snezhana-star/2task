@@ -2,15 +2,17 @@ let eventBus = new Vue()
 
 Vue.component('columns', {
     template: `
+        <div>
+        <h2 class="error" v-for="error in errors">{{error}}</h2>
       <div class="cont1">
-          <h2 class="error" v-for="error in errors">{{error}}</h2>
+      <createcard></createcard>
         <div class="col">
         <ul>
         <li v-for="card in column1"><p>{{card.title}}</p>
         <ul>
         <li v-for="t in card.subtasks" v-if="t.title !=null">
-        <input @click="Status1(card,t)" type="checkbox" :disabled="t.completed">
-        <p>{{t.title}}</p>
+            <input @click="Status1(card,t)" type="checkbox" :disabled="t.completed">
+            <p>{{t.title}}</p>
         </li>
         </ul>
         </li>      
@@ -40,6 +42,7 @@ Vue.component('columns', {
         </li>      
         </ul>    
         </div> 
+        </div>
         </div>
     `,
     data(){
