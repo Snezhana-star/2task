@@ -1,7 +1,9 @@
-Vue.component('createCard',{
+let eventBus = new Vue()
+
+Vue.component('createcard',{
     template:`
-       <div>
-    <h2>Создание заметки</h2>
+       <div class="form">
+         <h2>Создание заметки</h2>
 
         <form @submit.prevent="onSubmit">
             <input id="title" required v-model="title" type="text" placeholder="Название"><br>
