@@ -1,5 +1,55 @@
 let eventBus = new Vue()
+Vue.component('columns', {
+    template: `
+        <h2 class="error" v-for="error in errors">{{error}}</h2>
+        <div>
+        <ul>
+        <li v-for="card in column1"><p>{{card.title}}</p>
+        <ul>
+        <li v-for="t in card.subtasks" v-if="t.title !=null">
+        <input @click="Status1(card,t)" type="checkbox" :disabled="t.completed">
+        <p>{{t.title}}</p>
+</li>
+</ul>
+</li>      
+</ul>    
+</div>
+        <div>
+        <ul>
+        <li v-for="card in column2"><p>{{card.title}}</p>
+        <ul>
+        <li v-for="t in card.subtasks" v-if="t.title !=null">
+        <input @click="Status2(card,t)" type="checkbox" :disabled="t.completed">
+        <p>{{t.title}}</p>
+</li>
+</ul>
+</li>      
+</ul>    
+</div>
+        <h2 class="error" v-for="error in errors">{{error}}</h2>
+        <div>
+        <ul>
+        <li v-for="card in column3"><p>{{card.title}}</p>
+        <ul>
+        <li v-for="t in card.subtasks" v-if="t.title !=null">
+        <input @click="Status3(card,t)" type="checkbox" :disabled="t.completed">
+        <p>{{t.title}}</p>
+</li>
+</ul>
+</li>      
+</ul>    
+</div>
+    `,
+    data(){
+        return{
+            column1: [],
+            column2: [],
+            column3: [],
+            errors: []
+        }
+    },
 
+})
 Vue.component('createcard',{
     template:`
        <div class="form">
