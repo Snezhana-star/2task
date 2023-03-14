@@ -52,3 +52,14 @@ body>div>div>h2{
     text-align: center;
     font-size: 10pt;
 }
+.text{
+    text-decoration: line-through;
+}
+.col>ul>li>ul>li>input{
+    margin-left: 31px;
+    z-index: 1;
+    opacity: 0;
+}
+.col>ul>li>ul>li>p{
+    margin-left: -14px;
+}

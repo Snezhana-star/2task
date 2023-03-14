@@ -12,7 +12,7 @@ Vue.component('columns', {
         <ul>
         <li v-for="t in card.subtasks" v-if="t.title !=null">
             <input @click="Status1(card,t)" type="checkbox" :disabled="t.completed">
-            <p>{{t.title}}</p>
+            <p :class="{text:t.completed}">{{t.title}}</p>
         </li>
         </ul>
         </li>      
@@ -24,7 +24,7 @@ Vue.component('columns', {
         <ul>
         <li v-for="t in card.subtasks" v-if="t.title != null">
         <input @click="Status2(card,t)" type="checkbox" :disabled="t.completed">
-        <p>{{t.title}}</p>
+        <p :class="{text:t.completed}">{{t.title}}</p>
         </li>
         </ul>
         </li>      
@@ -36,7 +36,7 @@ Vue.component('columns', {
         <ul>
         <li v-for="t in card.subtasks" v-if="t.title !=null">
         <input @click="Status3(card,t)" type="checkbox" :disabled="t.completed">
-        <p>{{t.title}}</p>
+        <p :class="{text:t.completed}">{{t.title}}</p>
         
         </li>
         <p>{{card.date}}</p>
@@ -91,7 +91,7 @@ Vue.component('columns', {
                 if(this.column1.length > 0) {
                     this.column1.forEach(item => {
                         item.subtasks.forEach(item => {
-                            item.completed = true;
+                            item.completed = false;
                         })
                     })
                 }
