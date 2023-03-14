@@ -33,7 +33,6 @@ body{
     text-align: center;
  }
 .col>ul>li{
-    background-color: darkkhaki;
     margin: 20px;
     border-radius: 20px;
 }
@@ -56,10 +55,23 @@ body>div>div>h2{
     text-decoration: line-through;
 }
 .col>ul>li>ul>li>input{
-    margin-left: 31px;
+    margin-left: 10px;
     z-index: 1;
     opacity: 0;
+    width: 100px;
+    cursor: pointer;
 }
 .col>ul>li>ul>li>p{
-    margin-left: -14px;
+    margin-left: -104px;
+    font-weight: 500;
+    poin
+}
+.color1{
+    background-color: rgb(160, 211, 140);
+}
+.color2{
+    background-color: rgb(74, 113, 197);
+}
+.color3{
+    background-color: rgb(219, 132, 208);
 }

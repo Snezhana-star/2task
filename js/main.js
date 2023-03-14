@@ -8,9 +8,9 @@ Vue.component('columns', {
       <createcard></createcard>
         <div class="col">
         <ul>
-        <li v-for="card in column1"><p>{{card.title}}</p>
-        <ul>
-        <li v-for="t in card.subtasks" v-if="t.title !=null">
+        <li v-for="card in column1" :class="{color1:Count(card)==3 , color2:Count(card)==4 , color3:Count(card)==5}"><p>{{card.title}}</p>
+        <ul >
+        <li v-for="t in card.subtasks"  v-if="t.title !=null">
             <input @click="Status1(card,t)" type="checkbox" :disabled="t.completed">
             <p :class="{text:t.completed}">{{t.title}}</p>
         </li>
@@ -20,7 +20,7 @@ Vue.component('columns', {
         </div>
         <div class="col">
         <ul>
-        <li v-for="card in column2"><p>{{card.title}}</p>
+        <li v-for="card in column2" :class="{color1:Count(card)==3 , color2:Count(card)==4 , color3:Count(card)==5}"><p>{{card.title}}</p>
         <ul>
         <li v-for="t in card.subtasks" v-if="t.title != null">
         <input @click="Status2(card,t)" type="checkbox" :disabled="t.completed">
@@ -32,7 +32,7 @@ Vue.component('columns', {
         </div>
         <div class="col">
         <ul>
-        <li v-for="card in column3"><p>{{card.title}}</p>
+        <li v-for="card in column3" :class="{color1:Count(card)==3 , color2:Count(card)==4 , color3:Count(card)==5}" ><p>{{card.title}}</p>
         <ul>
         <li v-for="t in card.subtasks" v-if="t.title !=null">
         <input @click="Status3(card,t)" type="checkbox" :disabled="t.completed">
@@ -56,10 +56,14 @@ Vue.component('columns', {
         }
     },
     mounted(){
-        eventBus.$on('card-submitted', card =>{
+        this.column1 = JSON.parse(localStorage.getItem('column1')) || [];
+        this.column2 = JSON.parse(localStorage.getItem('column2')) || [];
+        this.column3 = JSON.parse(localStorage.getItem('column3')) || [];
+                eventBus.$on('card-submitted', card =>{
             this.errors = []
             if (this.column1.length < 3){
                 this.column1.push(card)
+                this.saveColumn1();
             }
             else {
                 this.errors.push("Сейчас нельзя добавить новую заметку")
@@ -67,6 +71,15 @@ Vue.component('columns', {
         })
     },
     methods: {
+        saveColumn1(){
+            localStorage.setItem('column1', JSON.stringify(this.column1));
+            },
+        saveColumn2(){
+            localStorage.setItem('column2', JSON.stringify(this.column2));
+            },
+        saveColumn3(){
+            localStorage.setItem('column3', JSON.stringify(this.column3));
+            },
         Status1(card, t){
             t.completed = true
             let count = 0
@@ -86,6 +99,8 @@ Vue.component('columns', {
             if (card.status/count*100 >= 50 && card.status/count*100 < 100 && this.column2.length < 5) {
                 this.column2.push(card)
                 this.column1.splice(this.column1.indexOf(card), 1)
+                this.saveColumn1();
+                this.saveColumn2();
             } else if (this.column2.length === 5) {
                 this.errors.push('Сначала выполни задания из второй колонки')
                 if(this.column1.length > 0) {
@@ -115,7 +130,9 @@ Vue.component('columns', {
             if (card.status / count * 100 === 100) {
                 this.column3.push(card)
                 this.column2.splice(this.column2.indexOf(card), 1)
-                card.date = new Date()
+                card.date = new Date().toLocaleString()
+                this.saveColumn2();
+                this.saveColumn3();
             }
             if(this.column2.length < 5) {
                 if(this.column1.length > 0) {
@@ -126,6 +143,15 @@ Vue.component('columns', {
                     })
                 }
             }
+        },
+        Count(card){
+            let count = 0
+            for (let i = 0; i < 5; i++) {
+                if (card.subtasks[i].title != null) {
+                    count++
+                }
+            }
+            return count;
         }
     },
     props: {
@@ -204,7 +230,7 @@ Vue.component('createcard',{
             this.subtask3 = null
             this.subtask4 = null
             this.subtask5 = null
-        }
+        },
     }
 })
 
